@@ -1,7 +1,10 @@
 package com.barath.app;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -15,21 +18,24 @@ import com.barath.app.Order.PaymentType;
 @Service
 public class OrderService {
 	
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+	
 	private static final String URL = "http://localhost:8082/payment";
-	private final RestTemplate restTemplate = new RestTemplate();
+	private final RestTemplate restTemplate;
 	private final OrderRepository orderRepository;
 	
 	
-	
-	
-	public OrderService(OrderRepository orderRepository) {
+		
+	public OrderService(OrderRepository orderRepository,RestTemplate restTemplate) {
 		super();
 		this.orderRepository = orderRepository;
+		this.restTemplate = restTemplate;
 	}
 
 
 	public Order placeOrder(Order order) {
-		
+			
+		logger.info(" Placing Order"+order);
 		if(PaymentType.COD.equals(order.getPaymentType())){			
 			order.setOrderStatus(OrderStatus.COMPLETED);
 			order.setOrderId(order.getOrderId()+1);

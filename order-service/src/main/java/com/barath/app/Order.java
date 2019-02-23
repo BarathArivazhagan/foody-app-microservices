@@ -2,11 +2,14 @@ package com.barath.app;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,9 +19,10 @@ import javax.persistence.Table;
 public class Order {
 	
 	@Id
+	@GeneratedValue
 	private Long orderId;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<OrderItem> items;
 	
 	@Column
