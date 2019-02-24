@@ -1,2 +1,1 @@
-# thoughtworks-demo
-Parthasarathy &amp; Barath Demo Pair
+# Designing Microsevices workshop
